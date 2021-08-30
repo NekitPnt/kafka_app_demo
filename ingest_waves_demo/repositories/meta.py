@@ -1,10 +1,16 @@
 def save_meta_to_db(meta: dict):
-    return None
+    print(f"Meta saved: {meta}")
 
 
 def convert_upload_content_meta(meta: dict):
-    return None
+    return meta
 
 
 def convert_meta_for_kafka_ingest(new_meta: dict):
-    return None
+    meta = {
+        'availability': new_meta['availability'],
+        'track_id': 1234,
+        'duration': 4321,
+        'format': 'mp3'
+    }
+    return meta

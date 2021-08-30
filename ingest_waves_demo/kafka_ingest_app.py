@@ -3,6 +3,9 @@ from json import loads, dumps
 
 from ingest_waves_demo.repositories import content, meta
 
+import logging
+
+# logging.basicConfig(level=logging.INFO)
 
 upload_consumer = KafkaConsumer(
     'upload',
@@ -17,7 +20,7 @@ ingest_producer = KafkaProducer(
     value_serializer=lambda v: dumps(v).encode('utf-8'),
     retries=5,
     request_timeout_ms=2000,
-    bootstrap_servers='localhost:9093',
+    bootstrap_servers='localhost:9092',
     api_version=(2, 5, 0)
 )
 
@@ -34,3 +37,4 @@ if __name__ == "__main__":
         # 4) Отправлять в kafka в топик ingest сообщение о сохранении нового файла c:
         ingest_kafka_meta = meta.convert_meta_for_kafka_ingest(new_meta)
         ingest_producer.send('ingest', ingest_kafka_meta).get()
+        print(f"Ingest kafka meta: {ingest_kafka_meta}")

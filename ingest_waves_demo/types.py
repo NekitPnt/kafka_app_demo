@@ -35,5 +35,5 @@ class MetaZodiac(BaseMeta):
 
 @dataclass
 class UploadData:
-    s3_url: str = Faker().url()
-    meta: Union[MetaType, MetaGenre, MetaZodiac] = random.choice([MetaType(), MetaGenre(), MetaZodiac()])
+    s3_url: str  #  = Faker().url()
+    meta: Union[MetaType, MetaGenre, MetaZodiac]  # = random.choice([MetaType(), MetaGenre(), MetaZodiac()])

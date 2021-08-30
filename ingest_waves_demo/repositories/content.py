@@ -8,25 +8,22 @@ fake: Faker = Faker()
 
 
 def new_content():
-    cont = UploadData()
     meta_class = random.choice([MetaType, MetaGenre, MetaZodiac])
+    meta = meta_class(
+        fake.catch_phrase(),
+        fake.numerify(),
+        1,
+        0,
+        fake.time(),
+        fake.boolean(),
+        0,
+        fake.boolean(),
+        fake.tld()
+    )
+    cont = UploadData(fake.url(), meta)
     cont.meta = cont.meta.__dict__
     cont = cont.__dict__
     return cont
-    {
-        "s3_url": fake.url(),
-        "meta": {
-            "title": fake.catch_phrase(),
-            "duration": fake.numerify(),
-            "position": 1,
-            "play_count": 0,
-            random.choice(['type', 'genre', 'zodiac_sign']): fake.tld(),
-            'date': fake.time(),
-            'availability': fake.boolean(),
-            'pdate': 0,
-            'explicit': fake.boolean()
-        }
-    }
 
 
 def get_content_from_s3(url: str):
@@ -34,4 +31,4 @@ def get_content_from_s3(url: str):
 
 
 def save_content_to_s3(content):
-    pass
+    print(f"File saved: {content}")

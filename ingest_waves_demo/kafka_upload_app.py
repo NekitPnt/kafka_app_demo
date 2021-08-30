@@ -22,4 +22,5 @@ if __name__ == "__main__":
     while True:
         new_content_data = content.new_content()
         upload_producer.send('upload', new_content_data).get()
+        print(new_content_data)
         time.sleep(random.randint(1, 5))
